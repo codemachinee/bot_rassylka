@@ -53,7 +53,7 @@ async def help(message):
 
 @dp.message_handler(commands=['post'])
 async def post(message):
-    await bot.send_message(message.chat.id, f'Введите текст поста и отправьте мне..')
+    await bot.send_message(message.chat.id, f'Введите текст/фото/видео/файл для рассылки и отправьте мне..')
     await bot.delete_message(message.chat.id, message.message_id)
     try:
         await bot.delete_message(message.chat.id, message.message_id - 1)
@@ -62,7 +62,7 @@ async def post(message):
     await Form.text.set()
 
 
-@dp.message_handler(state=Form.text)  # Принимаем состояние
+@dp.message_handler(state=Form.text, content_types=['text', 'document', 'photo', 'video'])  # Принимаем состояние
 async def new_message(message: types.Message, state: FSMContext):
     async with state.proxy() as data:  # Устанавливаем состояние ожидания
         data['text'] = message.message_id
