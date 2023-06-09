@@ -120,9 +120,9 @@ async def new_message(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Form.wallet)  # Принимаем состояние
 async def new_message(message: types.Message, state: FSMContext):
     async with state.proxy() as data:  # Устанавливаем состояние ожидания
+        await bot.send_message(message.chat.id, f'Thank you! We will send you a freebet soon if you meet the necessary requirements.')
+        await bot.delete_message(message.chat.id, (message.message_id - 1))
         await bot.delete_message(message.chat.id, message.message_id)
-        await bot.edit_message_text('Thank you! We will send you a freebet soon if you meet the '
-                                    'necessary requirements.', message.chat.id, (message.message_id - 1))
         await clients_base(bot, message).chec_and_record(data['channel'], message.text)
         await state.finish()
 

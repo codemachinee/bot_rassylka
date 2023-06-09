@@ -96,7 +96,7 @@ class clients_base:  # класс базы данных
             await self.bot.edit_message_text(f'Босс, рассылка в общую базу выполнена ✅', self.message.chat.id,
                                              message_id=self.message.message_id + 1)
         if self.base == 'база рассылки':
-            for i in range(1, len(self.worksheet.col_values(1))):
+            for i in range(1, len(self.worksheet2.col_values(1))):
                 try:
                     await self.bot.copy_message(self.worksheet2.col_values(1)[i], self.message.chat.id,
                                                 self.message_id, reply_markup=kb5)
